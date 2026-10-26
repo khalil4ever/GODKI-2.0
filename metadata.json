@@ -1,0 +1,8 @@
+{
+  "name": "Aegis VPN",
+  "description": "High-precision Android VPN client, live network telemetry monitor, split-tunneling manager, and DNS/latency diagnostics toolkit.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
