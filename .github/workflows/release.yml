@@ -1,0 +1,67 @@
+name: Publish Android Release v2.0.3
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build APK & Create GitHub Release v2.0.3
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+
+      - name: Setup Gradle 9.3.1
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "9.3.1"
+
+      - name: Ensure debug.keystore exists for signing
+        run: |
+          if [ ! -f debug.keystore ]; then
+            keytool -genkeypair -v \
+              -keystore debug.keystore \
+              -alias androiddebugkey \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -storepass android \
+              -keypass android \
+              -dname "CN=Android Debug,O=Android,C=US"
+          fi
+
+      - name: Build Aegis VPN v2.0.3 APK
+        run: gradle :app:assembleDebug --no-daemon
+
+      - name: Prepare Release APK Artifact
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk Aegis-VPN-v2.0.3.apk
+
+      - name: Create GitHub Release v2.0.3
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v2.0.3
+          name: "Aegis VPN v2.0.3 — Velvet Burgundy Major Release"
+          body_path: CHANGELOG.md
+          draft: false
+          prerelease: false
+          files: |
+            Aegis-VPN-v2.0.3.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
