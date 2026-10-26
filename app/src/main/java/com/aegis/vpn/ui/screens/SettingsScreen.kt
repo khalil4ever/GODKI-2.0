@@ -334,7 +334,7 @@ fun SettingsScreen(
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
-                    text = "Aegis VPN v2.0.0 (Build 2) • Velvet Burgundy Edition",
+                    text = "Aegis VPN v2.0.3 (Build 203) • Velvet Burgundy Edition",
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.align(Alignment.CenterHorizontally)

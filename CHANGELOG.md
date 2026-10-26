@@ -2,7 +2,7 @@
 
 All notable changes to **Aegis VPN** are documented in this file.
 
-## [2.0.0] - 2026-10-26 — Velvet Burgundy Major Release
+## [2.0.3] - 2026-10-26 — Velvet Burgundy Major Release
 
 ### Added
 - **Velvet Burgundy & Soft Rose Pearl Design System**:
